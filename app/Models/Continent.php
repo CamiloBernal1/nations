@@ -15,7 +15,21 @@ class Continent extends Model
 
     // Omitir campos de auritoria: 
     public $timestamps = false; 
-    
     use HasFactory;
+
+    //Relacion entre continente y region
+
+    public function regiones(){
+        return $this->hasMany(Region::class,'continent_id');
+    }
+
+    //Relacion entre continente y pais 
+
+    public function paises(){
+        return $this->hasManyThrough(Region::class,
+                                     Country::class,
+                                     'continent_id', 
+                                     'region_id');
+    }
 }
 
